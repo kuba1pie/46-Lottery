@@ -7,10 +7,13 @@
       aria-label="main navigation"
     >
       <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          <img src="~assets/buefy.png" alt="Buefy" height="28" />
-        </a>
-        <NuxtLink to="/login"> Login </NuxtLink>
+        <ul class="menu-list">
+          <li v-for="(item, key) of items" :key="key">
+            <nuxt-link :to="item.to" exact-active-class="is-active">
+              <b-icon :icon="item.icon" /> {{ item.title }}
+            </nuxt-link>
+          </li>
+        </ul>
       </div>
     </nav>
 
@@ -28,14 +31,19 @@ export default {
     return {
       items: [
         {
-          title: "Home",
-          icon: "home",
-          to: { name: "index" },
+          title: "Codes",
+          icon: "lightbulb",
+          to: { name: "codes" },
         },
         {
-          title: "Login",
+          title: "Import",
           icon: "lightbulb",
-          to: { name: "login" },
+          to: { name: "import" },
+        },
+        {
+          title: "Results",
+          icon: "home",
+          to: { name: "results" },
         },
       ],
     };
