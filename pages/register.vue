@@ -1,11 +1,13 @@
+/* eslint-disable no-sequences */ /* eslint-disable no-unused-expressions */ /*
+eslint-disable no-unused-expressions */ /* eslint-disable no-sequences */
 <template>
-  <div class="p-6 w-1/5 container mx-auto shadow-md">
+  <section class="section">
     <div class="columns is-mobile">
       <b-field
         label="Email"
         type="is-danger"
         message="This email is invalid"
-        @submit.prevent="userLogIn"
+        @submit.prevent="userSignUp"
       >
         <b-input
           id="email"
@@ -30,35 +32,34 @@
       <b-button
         tag="input"
         native-type="submit"
-        value="Login"
-        @click="userLogIn"
+        value="Register and login"
+        @click="userSignUp"
       />
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
 export default {
-  name: "Login",
-
+  name: "HomePage",
   data() {
     return {
       email: "",
       password: "",
     };
   },
-
   methods: {
     // eslint-disable-next-line node/handle-callback-err
-    userLogIn(err) {
+    userSignUp(err) {
       this.$store
-        .dispatch("signInWithEmail", {
+        .dispatch("signUp", {
           email: this.email,
           password: this.password,
         })
         .then(() => {
           this.email = "";
           this.password = "";
+          // if you wanted to redirect after sign in you'd do that here with this.$router.push('/pagename')
           this.$router.push("/admin");
         })
         .catch((err) => {

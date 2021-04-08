@@ -1,22 +1,7 @@
 /* eslint-disable prettier/prettier */
 <template>
   <div>
-    <nav
-      class="navbar header has-shadow is-primary"
-      role="navigation"
-      aria-label="main navigation"
-    >
-      <div class="navbar-brand">
-        <ul class="menu-list">
-          <li v-for="(item, key) of items" :key="key">
-            <nuxt-link :to="item.to" exact-active-class="is-active">
-              <b-icon :icon="item.icon" /> {{ item.title }}
-            </nuxt-link>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
+    <Header />
     <main class="main-content columns">
       <div class="container column is-10">
         <nuxt />
@@ -26,7 +11,11 @@
 </template>
 
 <script>
+import Header from "~/components/Header.vue";
 export default {
+  components: {
+    Header,
+  },
   data() {
     return {
       items: [
