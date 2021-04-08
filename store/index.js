@@ -1,9 +1,10 @@
 import Vuex from "vuex";
-import { auth } from "~/plugins/firebase.js";
+import { auth, db } from "~/plugins/firebase.js";
+const resultsRef = db.collection("codes");
 
 const createStore = () => {
   return new Vuex.Store({
-    state: { user: "" },
+    state: { user: "", results: "" },
 
     getters: {
       user(state) {
@@ -19,6 +20,9 @@ const createStore = () => {
       setUser(state, payload) {
         state.user = payload;
       },
+      setResults(state, payload) {
+        state.results = payload;
+      },
     },
 
     actions: {
@@ -32,6 +36,25 @@ const createStore = () => {
 
       signOut() {
         return auth.signOut();
+      },
+      getResults() {
+        resultsRef.doc("SF").set({
+          name: "San Francisco",
+          state: "CA",
+          country: "USA",
+          capital: false,
+          population: 860000,
+          regions: ["west_coast", "norcal"],
+        });
+      },
+      getResults2() {
+        db.collection("codes")
+          .get()
+          .then((snapshot) => {
+            snapshot.docs.forEach((doc) => {
+              const info = doc.data();
+              console.log(info.ean);
+            });          });
       },
     },
   });
