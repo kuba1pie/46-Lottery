@@ -1,11 +1,9 @@
 import Vuex from "vuex";
 import { auth, db } from "~/plugins/firebase.js";
-const resultsRef = db.collection("codes");
 
 const createStore = () => {
   return new Vuex.Store({
-    state: { user: "", results: "" },
-
+    state: { user: "", lotteryRes: "" },
     getters: {
       user(state) {
         return state.user;
@@ -21,7 +19,7 @@ const createStore = () => {
         state.user = payload;
       },
       setResults(state, payload) {
-        state.results = payload;
+        state.lotteryRes = payload;
       },
     },
 
@@ -37,24 +35,17 @@ const createStore = () => {
       signOut() {
         return auth.signOut();
       },
-      getResults() {
-        resultsRef.doc("SF").set({
-          name: "San Francisco",
-          state: "CA",
-          country: "USA",
-          capital: false,
-          population: 860000,
-          regions: ["west_coast", "norcal"],
-        });
-      },
-      getResults2() {
-        db.collection("codes")
+      getResults(context) {
+        const lotteryResults = [];
+        db.collection("results")
           .get()
           .then((snapshot) => {
             snapshot.docs.forEach((doc) => {
               const info = doc.data();
-              console.log(info.ean);
-            });          });
+              lotteryResults.push({ desc: info.desc, time: info.time.seconds })
+            });
+            context.commit("setResults", lotteryResults);
+          });
       },
     },
   });

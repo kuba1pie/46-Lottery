@@ -5,19 +5,36 @@
       <b-tab-item label="Codes"></b-tab-item>
       <b-tab-item label="Import scores"></b-tab-item>
     </b-tabs>
-    <button @click="getResults">Greet</button>
-    <button @click="getResults2">Greet</button>
+    <b-table :data="lotteryRes" :columns="columns"></b-table>
   </section>
   <section v-else><p>Please Login to your accont</p></section>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
-  name: "HomePage",
+  name: "Admin",
   layout: "auth",
   data() {
-    return {};
+    return {
+      columns: [
+        {
+          field: "desc",
+          label: "Desc",
+          width: "80",
+        },
+        {
+          field: "time",
+          label: "Time",
+        },
+      ],
+    };
+  },
+  computed: {
+    ...mapState(["lotteryRes"]),
+  },
+  mounted() {
+    this.getResults()
   },
   methods: {
     nuxtServerInit({ dispatch }, context) {
@@ -26,12 +43,7 @@ export default {
         dispatch("any_other_actions", context),
       ]);
     },
-    ...mapActions(["getResults2", "getResults"]),
-    ddd() {
-      // eslint-disable-next-line no-console
-      this.getResults2();
-      console.log("ddd");
-    },
+    ...mapActions(["getResults"]),
   },
 };
 </script>
