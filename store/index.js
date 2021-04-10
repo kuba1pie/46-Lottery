@@ -3,7 +3,7 @@ import { auth, db } from "~/plugins/firebase.js";
 
 const createStore = () => {
   return new Vuex.Store({
-    state: { user: "", lotteryRes: "" },
+    state: { user: "", lotteryRes: "", codesRes: "" },
     getters: {
       user(state) {
         return state.user;
@@ -20,6 +20,9 @@ const createStore = () => {
       },
       setResults(state, payload) {
         state.lotteryRes = payload;
+      },
+      setCodes(state, payload) {
+        state.codesRes = payload;
       },
     },
 
@@ -42,9 +45,21 @@ const createStore = () => {
           .then((snapshot) => {
             snapshot.docs.forEach((doc) => {
               const info = doc.data();
-              lotteryResults.push({ desc: info.desc, time: info.time.seconds })
+              lotteryResults.push({ desc: info.desc, time: info.time.seconds });
             });
             context.commit("setResults", lotteryResults);
+          });
+      },
+      getCodes(context) {
+        const codesResults = [];
+        db.collection("codes")
+          .get()
+          .then((snapshot) => {
+            snapshot.docs.forEach((doc) => {
+              const info = doc.data();
+              codesResults.push({ ean: info.ean });
+            });
+            context.commit("setCodes", codesResults);
           });
       },
     },

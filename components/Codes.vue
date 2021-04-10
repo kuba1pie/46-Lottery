@@ -1,38 +1,36 @@
 <template>
-  <div class="column">
-    <div class="card">
-      <header class="card-header">
-        <p class="card-header-title has-text-grey">
-          {{ title }}
-        </p>
-      </header>
-      <div class="card-content">
-        <div class="content has-text-centered">
-          <b-icon :icon="icon" size="is-large" type="is-primary" />
-        </div>
-      </div>
-      <footer class="card-footer">
-        <div class="card-footer-item">
-          <span>
-            <slot />
-          </span>
-        </div>
-      </footer>
-    </div>
-  </div>
+  <b-table :data="codesRes" :columns="columns"></b-table>
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
 export default {
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    icon: {
-      type: String,
-      required: true,
-    },
+  name: "Codes",
+  layout: "auth",
+  data() {
+    return {
+      columns: [
+        {
+          field: "ean",
+          label: "EAN",
+          width: "80",
+        },
+        {
+          field: "time",
+          label: "Time",
+        },
+      ],
+    };
   },
-}
+
+  computed: {
+    ...mapState(["codesRes"]),
+  },
+  mounted() {
+    this.getCodes();
+  },
+  methods: {
+    ...mapActions(["getCodes"]),
+  },
+};
 </script>

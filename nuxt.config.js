@@ -1,7 +1,6 @@
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
-
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: "lottery",
@@ -20,7 +19,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["~/plugins/firebase.js", "~/plugins/fireauth.js"],
+  plugins: ["~/plugins/firebase.js", "~/plugins/fireauth.js", "~/plugins/papaparse.js"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -52,8 +51,8 @@ export default {
           measurementId: "G-H9L9MXPLXE",
         },
         services: {
-           auth: true, // Just as example. Can be any other service.
-/*           auth: {
+          auth: true, // Just as example. Can be any other service.
+          /*           auth: {
             persistence: "local", // default
             initialize: {
               onAuthStateChangedMutation: "ON_AUTH_STATE_CHANGED_MUTATION",
