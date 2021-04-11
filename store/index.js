@@ -62,6 +62,10 @@ const createStore = () => {
             context.commit("setCodes", codesResults);
           });
       },
+      addCode(payload) {
+
+        // console.log("Added document with ID: ", res.id);
+      },
     },
   });
 };

@@ -29,7 +29,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import { Papa } from "papaparse";
+// import { Papa } from "papaparse";
 export default {
   name: "ImportFile",
   layout: "auth",
@@ -64,7 +64,7 @@ export default {
     greet(event) {
       // `this` inside methods points to the Vue instance
       // console.log(this.dropFiles[0]);
-      Papa.parse(this.dropFiles[0]);
+      // Papa.parse(this.dropFiles[0]);
     },
   },
 };

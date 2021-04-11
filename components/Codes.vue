@@ -1,14 +1,18 @@
 <template>
-  <b-table :data="codesRes" :columns="columns"></b-table>
+  <scetion>
+    <b-table :data="codesRes" :columns="columns"></b-table>
+  </scetion>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
+
 export default {
   name: "Codes",
   layout: "auth",
   data() {
     return {
+      ean: "",
       columns: [
         {
           field: "ean",
@@ -31,6 +35,7 @@ export default {
   },
   methods: {
     ...mapActions(["getCodes"]),
+
   },
 };
 </script>
