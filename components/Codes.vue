@@ -1,5 +1,12 @@
 <template>
   <scetion>
+    <div class="count">
+      <h2>
+       Winner codes:
+        {{ codesRes.filter((code) => code.award !== undefined).length }}
+      </h2>
+      <h2>Checked codes: {{ codesRes.length }}</h2>
+    </div>
     <b-table :data="codesRes" :columns="columns"></b-table>
   </scetion>
 </template>
@@ -38,7 +45,6 @@ export default {
   },
   methods: {
     ...mapActions(["getCodes"]),
-
   },
 };
 </script>

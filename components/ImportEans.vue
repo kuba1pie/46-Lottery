@@ -1,5 +1,12 @@
 <template>
   <div class="column">
+    <div class="count">
+      <h2>
+        Checked Eans count:
+        {{ validEans.filter((code) => code.checked == true).length }}
+      </h2>
+      <h2>Valid Eans count: {{ validEans.length }}</h2>
+    </div>
     <b-table :data="validEans" :columns="columns"></b-table>
   </div>
 </template>

@@ -1,28 +1,18 @@
 <template>
-  <section class="section">
-    <div v-if="status === 'start'" class="columns is-mobile">
-      <b-field label="Ean: ">
-        <b-input v-model="ean"></b-input>
-        <b-button @click="addCode()">Add code</b-button>
-      </b-field>
-    </div>
-    <div v-if="status === 'valid'" class="columns is-mobile">
-      <div v-if="eanStatus === 'first'" class="columns is-mobile">
-        <div v-if="wonStatus === 'won'" class="is-info columns is-mobile">
-          You won {{ last.desc }}
-        </div>
-        <div v-if="wonStatus === 'loose'" class="is-danger columns is-mobile">
-          You loose
-        </div>
+  <div class="column container">
+    <b-field v-if="status === 'start'">
+      <b-input v-model="ean"></b-input>
+      <b-button @click="addCode()">Add code</b-button>
+    </b-field>
+    <div v-if="status === 'valid'">
+      <div v-if="eanStatus === 'first'">
+        <div v-if="wonStatus === 'won'">You won {{ last.desc }}</div>
+        <div v-if="wonStatus === 'loose'">You loose</div>
       </div>
-      <div v-if="eanStatus === 'used'" class="columns is-mobile">
-        EAN already used
-      </div>
+      <div v-if="eanStatus === 'used'">EAN already used</div>
     </div>
-    <div v-if="status === 'invalid'" class="is-warning columns">
-      Invalid EAN
-    </div>
-  </section>
+    <div v-if="status === 'invalid'">Invalid EAN</div>
+  </div>
 </template>
 
 <script>
@@ -79,7 +69,7 @@ export default {
       }
     },
     checkIfUsed(ean) {
-      const item=ean.checked
+      const item = ean.checked;
       if (item !== true) {
         this.eanStatus = "first";
         this.markEan(item);
@@ -99,3 +89,12 @@ export default {
   },
 };
 </script>
+<style lang="css">
+nav span a,
+input {
+  padding: 2em;
+}
+.sc {
+  padding: 2em auto;
+}
+</style>

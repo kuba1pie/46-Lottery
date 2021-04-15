@@ -1,11 +1,9 @@
 /* eslint-disable prettier/prettier */
 <template>
-  <div>
+  <div id="auth">
     <Header />
-    <main class="main-content columns">
-      <div class="container column is-10">
-        <nuxt />
-      </div>
+    <main class="main-content columns container">
+      <nuxt />
     </main>
   </div>
 </template>

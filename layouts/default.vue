@@ -1,13 +1,9 @@
 /* eslint-disable prettier/prettier */
 <template>
-  <div>
+  <div id="default">
     <Header />
-
-
-    <main class="main-content columns">
-      <div class="container column is-10">
+    <main class="main-content columns container">
         <nuxt />
-      </div>
     </main>
   </div>
 </template>

@@ -1,7 +1,13 @@
 <template>
   <div class="Results">
+    <div class="count">
+      <h2>
+        Winner codes:
+        {{ lotteryRes.filter((code) => code.win !== undefined).length }}
+      </h2>
+      <h2>Checked codes: {{ lotteryRes.length }}</h2>
+    </div>
     <b-table :data="lotteryRes" :columns="columns"></b-table>
-
   </div>
 </template>
 

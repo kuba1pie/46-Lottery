@@ -9,7 +9,6 @@
             <span>{{ file.name || "Click to upload" }}</span>
           </a>
         </b-upload>
-        <button @click="greet">Greet</button>
       </b-field>
       <b-field>
         <b-upload v-model="dropFiles" multiple drag-drop expanded>
@@ -23,6 +22,7 @@
           </section>
         </b-upload>
       </b-field>
+      <b-button @click="greet">Upload</b-button>
     </div>
   </div>
 </template>

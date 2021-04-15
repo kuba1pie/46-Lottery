@@ -1,8 +1,5 @@
-/* eslint-disable no-sequences */ /* eslint-disable no-unused-expressions */ /*
-eslint-disable no-unused-expressions */ /* eslint-disable no-sequences */
 <template>
-  <section class="section">
-    <div class="columns is-mobile">
+  <section class="p-6 w-1/5 container mx-auto shadow-md">
       <b-field
         label="Email"
         type="is-danger"
@@ -35,7 +32,6 @@ eslint-disable no-unused-expressions */ /* eslint-disable no-sequences */
         value="Register and login"
         @click="userSignUp"
       />
-    </div>
   </section>
 </template>
 
