@@ -1,35 +1,64 @@
 <template>
   <section class="section">
     <div class="columns is-mobile">
-      <b-field>
-        <b-input placeholder="Number" type="number" min="13" max="13">
-        </b-input>
+      <b-field label="Ean: ">
+        <b-input v-model="ean"></b-input>
+        <b-button @click="addCode()">Add code</b-button>
       </b-field>
     </div>
-    <b-field label="Ean: ">
-      <b-input v-model="ean"></b-input>
-      <b-button @click="addCode()">Add code</b-button>
-    </b-field>
   </section>
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import {  db } from "~/plugins/firebase.js";
+import { mapActions, mapState } from "vuex";
+// import moment from "moment";
+
+import { db } from "~/plugins/firebase.js";
 
 export default {
   name: "HomePage",
   data() {
+    class Item {
+      constructor(ean, closest) {
+        this.ean = parseInt(ean);
+        this.created = Date.now();
+        this.closest = closest;
+        this.send = function () {
+          db.collection("testCodes").add({
+            ean: this.ean,
+            created: this.created,
+            closest: this.closest,
+          });
+        };
+      }
+    }
     return {
-      ean: "",
+      ean: null,
+      Item,
     };
   },
+  computed: {
+    ...mapState(["lotteryRes"]),
+  },
+  mounted() {
+    this.getResults();
+  },
   methods: {
-    ...mapActions(["addCode"]),
+    ...mapActions(["addCode", "getResults"]),
+
     addCode() {
-      db.collection("codes").add({
-        ean: this.ean,
+      const counts = this.lotteryRes;
+      const goal = this.ean;
+
+      const closest = counts.reduce(function (prev, curr) {
+        return curr.time - goal.time < prev.time - goal.time
+          ? curr
+          : prev;
       });
+
+      console.log(closest);
+      const code = new this.Item(this.ean, closest);
+      code.send();
     },
   },
 };

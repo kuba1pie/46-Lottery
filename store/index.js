@@ -1,4 +1,6 @@
 import Vuex from "vuex";
+import moment from "moment";
+
 import { auth, db } from "~/plugins/firebase.js";
 
 const createStore = () => {
@@ -40,6 +42,20 @@ const createStore = () => {
       },
       getResults(context) {
         const lotteryResults = [];
+
+        db.collection("results").onSnapshot(
+          (querySnapshot) => {
+            console.log(
+              `Received query snapshot of size ${querySnapshot.size}`
+            );
+            console.log(JSON.stringify(querySnapshot.docs));
+            // ...
+          },
+          (err) => {
+            console.log(`Encountered error: ${err}`);
+          }
+        );
+
         db.collection("results")
           .get()
           .then((snapshot) => {
@@ -57,14 +73,13 @@ const createStore = () => {
           .then((snapshot) => {
             snapshot.docs.forEach((doc) => {
               const info = doc.data();
-              codesResults.push({ ean: info.ean });
+              codesResults.push({
+                ean: info.ean,
+                time: moment.unix(info.created / 1000).format("MM/DD/YYYY HH:mm:ss"),
+              });
             });
             context.commit("setCodes", codesResults);
           });
-      },
-      addCode(payload) {
-
-        // console.log("Added document with ID: ", res.id);
       },
     },
   });
