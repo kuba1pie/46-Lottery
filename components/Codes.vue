@@ -17,11 +17,14 @@ export default {
         {
           field: "ean",
           label: "EAN",
-          width: "80",
         },
         {
           field: "time",
           label: "Time",
+        },
+        {
+          field: "award",
+          label: "Result",
         },
       ],
     };

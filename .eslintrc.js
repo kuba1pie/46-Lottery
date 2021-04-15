@@ -13,5 +13,5 @@ module.exports = {
     "plugin:nuxt/recommended",
   ],
   plugins: [],
-  rules: { "prettier/prettier": "off", "no-console": "off" },
+  rules: { "prettier/prettier": "off", "no-console": "warn" },
 };

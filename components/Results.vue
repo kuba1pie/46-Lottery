@@ -22,11 +22,19 @@ export default {
           field: "time",
           label: "Time",
         },
+        {
+          field: "win",
+          label: "Win",
+        },
+        {
+          field: "winnerCode",
+          label: "Win",
+        },
       ],
     };
   },
   computed: {
-    ...mapState(["lotteryRes", "last"]),
+    ...mapState(["lotteryRes"]),
   },
   mounted() {
     this.getResults();

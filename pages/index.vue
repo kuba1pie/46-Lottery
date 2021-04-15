@@ -8,10 +8,10 @@
     </div>
     <div v-if="status === 'valid'" class="columns is-mobile">
       <div v-if="eanStatus === 'first'" class="columns is-mobile">
-        <div v-if="wonStatus === 'won'" class="columns is-mobile">
+        <div v-if="wonStatus === 'won'" class="is-info columns is-mobile">
           You won {{ last.desc }}
         </div>
-        <div v-if="wonStatus === 'loose'" class="columns is-mobile">
+        <div v-if="wonStatus === 'loose'" class="is-danger columns is-mobile">
           You loose
         </div>
       </div>
@@ -19,7 +19,9 @@
         EAN already used
       </div>
     </div>
-    <div v-if="status === 'invalid'" class="columns is-mobile">Invalid EAN</div>
+    <div v-if="status === 'invalid'" class="is-warning columns">
+      Invalid EAN
+    </div>
   </section>
 </template>
 
@@ -35,7 +37,7 @@ export default {
         this.created = Date.now();
         this.award = award;
         this.send = function () {
-          db.collection("testCodes").add({
+          db.collection("codes").add({
             ean: this.ean,
             created: this.created,
             award: this.award,
@@ -61,6 +63,31 @@ export default {
   methods: {
     ...mapActions(["addCode", "getResults", "getValidEans"]),
     ...mapMutations(["setWin", "markEan"]),
+
+    addCode() {
+      this.checkEan();
+      const code = new this.Item(this.ean, this.last);
+      code.send();
+    },
+    checkEan() {
+      const val = this.validEans.filter((e) => e.ean === parseInt(this.ean));
+      if (val.length > 0) {
+        this.status = "valid";
+        this.checkIfUsed(val[0]);
+      } else {
+        this.status = "invalid";
+      }
+    },
+    checkIfUsed(ean) {
+      const item=ean.checked
+      if (item !== true) {
+        this.eanStatus = "first";
+        this.markEan(item);
+        this.checkAward();
+      } else {
+        this.eanStatus = "used";
+      }
+    },
     checkAward() {
       if (this.last !== "loose") {
         this.wonStatus = "won";
@@ -68,27 +95,6 @@ export default {
       } else {
         this.wonStatus = "loose";
       }
-    },
-    checkEan() {
-      const val = this.validEans.filter((e) => e.ean === parseInt(this.ean));
-      if (val.length > 0) {
-        this.status = "valid";
-        if (val[0].checked !== true) {
-          this.eanStatus = "first";
-          this.checkAward();
-          this.markEan(val[0].id);
-        } else {
-          this.eanStatus = "used";
-        }
-      } else {
-        this.status = "invalid";
-      }
-    },
-    addCode() {
-      this.checkEan();
-
-      const code = new this.Item(this.ean, this.last);
-      code.send();
     },
   },
 };

@@ -19,8 +19,8 @@ export default {
           label: "EAN",
         },
         {
-          field: "won",
-          label: "Won",
+          field: "checked",
+          label: "checked",
         },
       ],
     };

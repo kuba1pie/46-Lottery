@@ -40,15 +40,11 @@ const createStore = () => {
       },
       setWin(state, payload) {
         const cityRef = db.collection("results").doc(payload.id);
-        // Set the 'capital' field of the city
         cityRef.update({ win: true, winnerCode: payload.ean });
-        console.log("doc: " + payload.id + " value set to true");
       },
       markEan(state, payload) {
         const cityRef = db.collection("validEans").doc(payload);
-        // Set the 'capital' field of the city
         cityRef.update({ checked: true });
-        console.log("EAN: " + payload + " checked set to true");
       },
     },
 
@@ -66,82 +62,64 @@ const createStore = () => {
       },
 
       getResults(context) {
-        const lotteryResults = [];
-
         db.collection("results").onSnapshot(
           (querySnapshot) => {
-            console.log(
-              `Received query snapshot of size ${querySnapshot.size}`
-            );
-            // console.log(JSON.stringify(querySnapshot.docs));
-            // ...
+            const lotteryResults = [];
+            querySnapshot.docs.forEach((doc) => {
+              const info = doc.data();
+              const item = {
+                id: doc.id,
+                desc: info.desc,
+                win: info.win,
+                winnerCode: info.winnerCode,
+                time: moment
+                  .unix(info.time.seconds)
+                  .format("MM/DD/YYYY HH:mm:ss"),
+              };
+              if (info.time.seconds < Date.now() && info.win === false) {
+                context.commit("setLast", item);
+              } else {
+                this.last = "loose";
+              }
+              lotteryResults.push(item);
+            });
+            context.commit("setResults", lotteryResults);
           },
           (err) => {
             console.log(`Encountered error: ${err}`);
           }
         );
-
-        db.collection("results")
-          .get()
-          .then((snapshot) => {
-            snapshot.docs.forEach((doc) => {
-              const info = doc.data();
-              if (info.time.seconds < Date.now() && info.win === false) {
-                context.commit("setLast", {
-                  id: doc.id,
-                  desc: info.desc,
-                  time: moment
-                    .unix(info.time.seconds)
-                    .format("MM/DD/YYYY HH:mm:ss"),
-                });
-              } else {
-                this.last = "no win code";
-              }
-
-              lotteryResults.push({
-                id: doc.id,
-                desc: info.desc,
-                time: moment
-                  .unix(info.time.seconds)
-                  .format("MM/DD/YYYY HH:mm:ss"),
-              });
-            });
-            context.commit("setResults", lotteryResults);
-          });
       },
       getCodes(context) {
-        const codesResults = [];
-        db.collection("codes")
-          .get()
-          .then((snapshot) => {
-            snapshot.docs.forEach((doc) => {
-              const info = doc.data();
-              codesResults.push({
-                id: doc.id,
-                ean: info.ean,
-                time: moment
-                  .unix(info.created / 1000)
-                  .format("MM/DD/YYYY HH:mm:ss"),
-              });
+        db.collection("codes").onSnapshot((querySnapshot) => {
+          const codesResults = [];
+          querySnapshot.docs.forEach((doc) => {
+            const info = doc.data();
+            codesResults.push({
+              id: doc.id,
+              ean: info.ean,
+              award: info.award.desc,
+              time: moment
+                .unix(info.created / 1000)
+                .format("MM/DD/YYYY HH:mm:ss"),
             });
-            context.commit("setCodes", codesResults);
           });
+          context.commit("setCodes", codesResults);
+        });
       },
       getValidEans(context) {
-        const validEansResults = [];
-        db.collection("validEans")
-          .get()
-          .then((snapshot) => {
-            snapshot.docs.forEach((doc) => {
-              const info = doc.data();
-              validEansResults.push({
-                checked: info.checked,
-                ean: info.ean,
-                id: doc.id
-              });
+        db.collection("validEans").onSnapshot((querySnapshot) => {
+          const validEansResults = [];
+          querySnapshot.docs.forEach((doc) => {
+            const info = doc.data();
+            validEansResults.push({
+              checked: info.checked,
+              ean: info.ean,
+              id: doc.id,
             });
-            context.commit("setValidEans", validEansResults);
           });
+          context.commit("setValidEans", validEansResults);
+        });
       },
     },
   });
