@@ -26,7 +26,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["lotteryRes"]),
+    ...mapState(["lotteryRes", "last"]),
   },
   mounted() {
     this.getResults();

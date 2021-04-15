@@ -4,6 +4,7 @@
       <b-tab-item label="Results"><Results /></b-tab-item>
       <b-tab-item label="Codes"><Codes /></b-tab-item>
       <b-tab-item label="Import scores"><ImportFile /></b-tab-item>
+      <b-tab-item label="Valid EAN"><ImportEans /></b-tab-item>
     </b-tabs>
   </section>
   <section v-else><p>Please Login to your accont</p></section>
