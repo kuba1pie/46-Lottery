@@ -1,10 +1,7 @@
 <template>
   <scetion>
     <div class="count">
-      <h2>
-       Winner codes:
-        {{ codesRes.filter((code) => code.award !== undefined).length }}
-      </h2>
+      <h2>Winner codes: {{ winCodes }}</h2>
       <h2>Checked codes: {{ codesRes.length }}</h2>
     </div>
     <b-table :data="codesRes" :columns="columns"></b-table>
@@ -12,7 +9,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
 
 export default {
   name: "Codes",
@@ -39,6 +36,7 @@ export default {
 
   computed: {
     ...mapState(["codesRes"]),
+    ...mapGetters(["winCodes"]),
   },
   mounted() {
     this.getCodes();

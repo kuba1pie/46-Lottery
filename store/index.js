@@ -7,8 +7,8 @@ const createStore = () => {
   return new Vuex.Store({
     state: {
       user: "",
-      lotteryRes: "",
-      codesRes: "",
+      lotteryRes: [],
+      codesRes: [],
       last: "loose",
       validEans: [],
     },
@@ -19,6 +19,12 @@ const createStore = () => {
 
       isAuthenticated(state) {
         return !!state.user;
+      },
+      winCodes: (state) => {
+        return state.codesRes.filter((code) => code.award !== undefined).length;
+      },
+      winRes: (state) => {
+        return state.lotteryRes.filter((code) => code.win !== undefined).length;
       },
     },
 

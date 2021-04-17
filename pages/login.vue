@@ -1,62 +1,20 @@
 <template>
-  <section class="p-6 w-1/5 container mx-auto shadow-md">
-    <b-field
-      label="Email"
-      type="is-danger"
-      message="This email is invalid"
-      @submit.prevent="userLogIn"
-    >
-      <b-input id="email" v-model="email" type="email" value="" maxlength="30">
-      </b-input>
-    </b-field>
-
-    <b-field label="Password">
-      <b-input
-        id="password"
-        v-model="password"
-        type="password"
-        value=""
-        password-reveal
-      >
-      </b-input>
-    </b-field>
-    <b-button
-      tag="input"
-      native-type="submit"
-      value="Login"
-      @click="userLogIn"
-    />
+  <section class="section">
+    <p>Please Login to your accont</p>
+    <Login />
   </section>
 </template>
 
 <script>
+import Login from "@/components/Login.vue";
 export default {
-  name: "Login",
+  name: "Admin",
+  components: {
 
-  data() {
-    return {
-      email: "",
-      password: "",
-    };
+    Login,
   },
-
-  methods: {
-    // eslint-disable-next-line node/handle-callback-err
-    userLogIn(err) {
-      this.$store
-        .dispatch("signInWithEmail", {
-          email: this.email,
-          password: this.password,
-        })
-        .then(() => {
-          this.email = "";
-          this.password = "";
-          this.$router.push("/admin");
-        })
-        .catch((err) => {
-          alert(err.message);
-        });
-    },
+  layout: "auth",
+  data() {
+    return {};
   },
 };
-</script>

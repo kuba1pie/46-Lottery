@@ -7,19 +7,24 @@
       <b-tab-item label="Valid EAN"><ImportEans /></b-tab-item>
     </b-tabs>
   </section>
-  <section v-else><p>Please Login to your accont</p></section>
+  <section v-else class="section">
+    <p>Please Login to your accont</p>
+    <Login />
+  </section>
 </template>
 
 <script>
 import Results from "@/components/Results.vue";
 import Codes from "@/components/Codes.vue";
 import ImportFile from "@/components/ImportFile.vue";
+import Login from "@/components/Login.vue";
 export default {
   name: "Admin",
   components: {
     Results,
     Codes,
     ImportFile,
+    Login,
   },
   layout: "auth",
   data() {
