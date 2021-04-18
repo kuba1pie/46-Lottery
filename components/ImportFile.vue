@@ -29,7 +29,8 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import  Papaparse from "papaparse";
+import Papaparse from "papaparse";
+import { db } from "~/plugins/firebase.js";
 export default {
   name: "ImportFile",
   layout: "auth",
@@ -61,12 +62,22 @@ export default {
     deleteDropFile(index) {
       this.dropFiles.splice(index, 1);
     },
+    putAward(item) {
+      db.collection("results").add({
+        ean: item.ean,
+        desc: item.desc,
+      });
+    },
     greet(event) {
-      // `this` inside methods points to the Vue instance
-      // console.log(this.dropFiles[0]);
       Papaparse.parse(this.dropFiles[0], {
-        complete (results) {
-          console.log(results.data);
+        header: true,
+        complete(results) {
+          results.data.forEach((element) =>
+            db.collection("results").add({
+              time: element.time,
+              desc: element.desc,
+            })
+          );
         },
       });
     },

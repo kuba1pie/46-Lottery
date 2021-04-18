@@ -78,15 +78,23 @@ const createStore = () => {
                 desc: info.desc,
                 win: info.win,
                 winnerCode: info.winnerCode,
-                time: moment
-                  .unix(info.time.seconds)
-                  .format("MM/DD/YYYY HH:mm:ss"),
+                time: null,
               };
-              if (info.time.seconds < Date.now() && info.win === false) {
-                context.commit("setLast", item);
-              } else {
-                this.last = "loose";
+              if (info.time) {
+                item.time = moment
+                  .unix(info.time.seconds)
+                  .format("MM/DD/YYYY HH:mm:ss");
+                if (
+                  info.time &&
+                  info.time.seconds < Date.now() &&
+                  info.win === false
+                ) {
+                  context.commit("setLast", item);
+                } else {
+                  this.last = "loose";
+                }
               }
+
               lotteryResults.push(item);
             });
             context.commit("setResults", lotteryResults);
