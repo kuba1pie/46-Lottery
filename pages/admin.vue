@@ -1,10 +1,9 @@
 <template>
   <section v-if="$store.state.user" class="section">
     <b-tabs position="is-centered" class="block">
-      <b-tab-item label="Results"><Results /></b-tab-item>
-      <b-tab-item label="Codes"><Codes /></b-tab-item>
-      <b-tab-item label="Import awards file"><ImportFile /></b-tab-item>
-      <b-tab-item label="Valid EAN"><ImportEans /></b-tab-item>
+      <b-tab-item label="Prizes"><Prizes /></b-tab-item>
+      <b-tab-item label="Valid EANs"><Eans /></b-tab-item>
+      <b-tab-item label="Scaned Codes"><Codes /></b-tab-item>
     </b-tabs>
   </section>
   <section v-else class="section">
@@ -14,18 +13,16 @@
 </template>
 
 <script>
-import Results from "@/components/Results.vue";
+import Prizes from "@/components/Prizes.vue";
 import Codes from "@/components/Codes.vue";
-import ImportFile from "@/components/ImportFile.vue";
-import ImportEans from "@/components/ImportEans.vue";
+import Eans from "@/components/Eans.vue";
 import Login from "@/components/Login.vue";
 export default {
   name: "Admin",
   components: {
-    Results,
+    Prizes,
     Codes,
-    ImportEans,
-    ImportFile,
+    Eans,
     Login,
   },
   layout: "auth",

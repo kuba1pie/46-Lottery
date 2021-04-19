@@ -8,9 +8,8 @@
 <script>
 import Login from "@/components/Login.vue";
 export default {
-  name: "Admin",
+  name: "Login",
   components: {
-
     Login,
   },
   layout: "auth",

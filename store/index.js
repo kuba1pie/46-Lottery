@@ -46,11 +46,15 @@ const createStore = () => {
       },
       setWin(state, payload) {
         const cityRef = db.collection("results").doc(payload.id);
-        cityRef.update({ win: true, winnerCode: payload.ean });
+        cityRef.update({
+          win: true,
+          winnerCode: payload.ean,
+          winDate: Date.now(),
+        });
       },
       markEan(state, payload) {
         const cityRef = db.collection("validEans").doc(payload);
-        cityRef.update({ checked: true });
+        cityRef.update({ checked: true, checkedTime: Date.now() });
       },
     },
 
@@ -68,72 +72,78 @@ const createStore = () => {
       },
 
       getResults(context) {
-        db.collection("results").onSnapshot(
-          (querySnapshot) => {
-            const lotteryResults = [];
-            querySnapshot.docs.forEach((doc) => {
-              const info = doc.data();
-              const item = {
-                id: doc.id,
-                desc: info.desc,
-                win: info.win,
-                winnerCode: info.winnerCode,
-                time: null,
-              };
-              if (info.time) {
-                item.time = moment
-                  .unix(info.time.seconds)
-                  .format("MM/DD/YYYY HH:mm:ss");
-                if (
-                  info.time &&
-                  info.time.seconds < Date.now() &&
-                  info.win === false
-                ) {
-                  context.commit("setLast", item);
-                } else {
-                  this.last = "loose";
-                }
-              }
+        db.collection("results")
+          .orderBy("time", "asc")
+          .onSnapshot(
+            (querySnapshot) => {
+              const lotteryResults = [];
+              querySnapshot.docs.forEach((doc) => {
+                const info = doc.data();
+                const item = {
+                  id: doc.id,
+                  desc: info.desc,
+                  win: info.win,
+                  winnerCode: info.winnerCode,
+                  time: null,
+                };
+                if (info.time) {
+                  const date = info.time;
+                  item.time = moment.unix(date).format("MM/DD/YYYY HH:mm:ss");
+                  if (info.time * 1000 < Date.now()) {
+                    context.commit("setLast", item);
+                    this.last = item;
+                  }
+                  if (info.win === true) {
+                    context.commit("setLast", "loose");
+                    this.last = "loose";
 
-              lotteryResults.push(item);
-            });
-            context.commit("setResults", lotteryResults);
-          },
-          (err) => {
-            console.log(`Encountered error: ${err}`);
-          }
-        );
+                  }
+                }
+
+                lotteryResults.push(item);
+              });
+              context.commit("setResults", lotteryResults);
+            },
+            (err) => {
+              // eslint-disable-next-line no-console
+              console.log(`Encountered error: ${err}`);
+            }
+          );
       },
       getCodes(context) {
-        db.collection("codes").onSnapshot((querySnapshot) => {
-          const codesResults = [];
-          querySnapshot.docs.forEach((doc) => {
-            const info = doc.data();
-            codesResults.push({
-              id: doc.id,
-              ean: info.ean,
-              award: info.award.desc,
-              time: moment
-                .unix(info.created / 1000)
-                .format("MM/DD/YYYY HH:mm:ss"),
+        db.collection("codes")
+          .orderBy("created", "desc")
+          .onSnapshot((querySnapshot) => {
+            const codesResults = [];
+            querySnapshot.docs.forEach((doc) => {
+              const info = doc.data();
+              codesResults.push({
+                id: doc.id,
+                ean: info.ean,
+                award: info.award.desc,
+                time: moment
+                  .unix(info.created / 1000)
+                  .format("MM/DD/YYYY HH:mm:ss"),
+              });
             });
+            context.commit("setCodes", codesResults);
           });
-          context.commit("setCodes", codesResults);
-        });
       },
       getValidEans(context) {
-        db.collection("validEans").onSnapshot((querySnapshot) => {
-          const validEansResults = [];
-          querySnapshot.docs.forEach((doc) => {
-            const info = doc.data();
-            validEansResults.push({
-              checked: info.checked,
-              ean: info.ean,
-              id: doc.id,
+        db.collection("validEans")
+          .orderBy("ean", "asc")
+          .onSnapshot((querySnapshot) => {
+            const validEansResults = [];
+            querySnapshot.docs.forEach((doc) => {
+              const info = doc.data();
+              validEansResults.push({
+                checked: info.checked,
+                ean: info.ean,
+                id: doc.id,
+              });
             });
+            context.commit("setValidEans", validEansResults);
           });
-          context.commit("setValidEans", validEansResults);
-        });
       },
     },
   });

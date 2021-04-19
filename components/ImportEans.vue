@@ -1,11 +1,15 @@
 <template>
-  <div class="column">
-    <div class="count">
-      <h2>
-        Checked Eans count:
-        {{ validEans.filter((code) => code.checked == true).length }}
-      </h2>
-      <h2>Valid Eans count: {{ validEans.length }}</h2>
+  <div id="ImportEans" class="column ImportEans">
+    <h1>Import</h1>
+    <div id="form">
+      <b-field class="file">
+        <b-upload v-model="file" expanded>
+          <a class="button is-primary is-fullwidth">
+            <b-icon icon="upload"></b-icon>
+            <span>{{ file.name || "Click to upload" }}</span>
+          </a>
+        </b-upload>
+      </b-field>
       <b-field>
         <b-upload v-model="dropFiles" multiple drag-drop expanded>
           <section class="section">
@@ -13,61 +17,47 @@
               <p>
                 <b-icon icon="upload" size="is-large"></b-icon>
               </p>
-              <p>Drop your files here or click to upload</p>
+              <p>Drop your EAN file here or click to upload</p>
             </div>
           </section>
         </b-upload>
       </b-field>
-      <b-button @click="greet">Upload</b-button>
+      <b-button @click="upload">Upload</b-button>
     </div>
-    <b-table :data="validEans" :columns="columns"></b-table>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
 import Papaparse from "papaparse";
 import { db } from "~/plugins/firebase.js";
-
 export default {
-  name: "ImportEans",
+  name: "ImportFile",
   layout: "auth",
   data() {
     return {
-      eans: [],
-      dropFiles: [],
       file: {},
+      dropFiles: [],
       columns: [
         {
-          field: "ean",
-          label: "EAN",
+          field: "desc",
+          label: "Desc",
+          width: "80",
         },
         {
-          field: "checked",
-          label: "checked",
+          field: "time",
+          label: "Time",
         },
       ],
     };
   },
-  computed: {
-    ...mapState(["lotteryRes", "validEans"]),
-  },
-  mounted() {
-    this.getValidEans();
-  },
   methods: {
-    ...mapActions(["getResults", "getValidEans"]),
-    // ...mapMutations(["setValidEans"]),
     deleteDropFile(index) {
       this.dropFiles.splice(index, 1);
     },
-    greet(event) {
-      // `this` inside methods points to the Vue instance
-      // console.log(this.dropFiles[0]);
+    upload() {
       Papaparse.parse(this.dropFiles[0], {
         header: true,
         complete(results) {
-          console.log(results.data);
           results.data.forEach((element) =>
             db.collection("validEans").add({
               ean: element.ean,

@@ -55,6 +55,7 @@ export default {
     ...mapMutations(["setWin", "markEan"]),
 
     addCode() {
+      console.log("add");
       this.checkEan();
       const code = new this.Item(this.ean, this.last);
       code.send();
@@ -69,16 +70,19 @@ export default {
       }
     },
     checkIfUsed(ean) {
-      const item = ean.checked;
+      console.log(ean)
+      console.log(ean.win)
+      const item = ean.win;
       if (item !== true) {
         this.eanStatus = "first";
-        this.markEan(item);
-        this.checkAward();
+        console.log("mark ean as checked " + this.ean);
+        this.markEan(ean.id);
+        this.checkAward(ean);
       } else {
         this.eanStatus = "used";
       }
     },
-    checkAward() {
+    checkAward(ean) {
       if (this.last !== "loose") {
         this.wonStatus = "won";
         this.setWin({ id: this.last.id, ean: this.ean });

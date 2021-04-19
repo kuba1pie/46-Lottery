@@ -17,22 +17,22 @@
               <p>
                 <b-icon icon="upload" size="is-large"></b-icon>
               </p>
-              <p>Drop your files here or click to upload</p>
+              <p>Drop your Prize file or click to upload</p>
             </div>
           </section>
         </b-upload>
       </b-field>
-      <b-button @click="greet">Upload</b-button>
+      <b-button @click="upload">Upload</b-button>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions } from "vuex";
 import Papaparse from "papaparse";
 import { db } from "~/plugins/firebase.js";
 export default {
-  name: "ImportFile",
+  name: "ImportPrizes",
   layout: "auth",
   data() {
     return {
@@ -51,24 +51,12 @@ export default {
       ],
     };
   },
-  computed: {
-    ...mapState(["lotteryRes"]),
-  },
-  mounted() {
-    this.getResults();
-  },
   methods: {
     ...mapActions(["getResults"]),
     deleteDropFile(index) {
       this.dropFiles.splice(index, 1);
     },
-    putAward(item) {
-      db.collection("results").add({
-        ean: item.ean,
-        desc: item.desc,
-      });
-    },
-    greet(event) {
+    upload() {
       Papaparse.parse(this.dropFiles[0], {
         header: true,
         complete(results) {

@@ -1,19 +1,24 @@
 <template>
-  <div class="Results">
+  <div id="Prizes" class="Results Prizes">
     <div class="count">
       <h2>
         Winner codes:
+        {{ lotteryRes.filter((code) => code.win !== undefined).length }}
       </h2>
       <h2>Checked codes: {{ lotteryRes.length }}</h2>
     </div>
+    <ImportPrizes />
     <b-table :data="lotteryRes" :columns="columns"></b-table>
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
+import ImportPrizes from "@/components/ImportPrizes.vue";
+
 export default {
   name: "Results",
+  components: { ImportPrizes },
   layout: "auth",
   data() {
     return {
@@ -33,7 +38,7 @@ export default {
         },
         {
           field: "winnerCode",
-          label: "Win",
+          label: "winnerCode",
         },
       ],
     };
