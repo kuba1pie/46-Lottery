@@ -1,0 +1,6 @@
+- name: Deploy
+  uses: peaceiris/actions-gh-pages@v3
+  with:
+    github_token: ${{ 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 }}
+    publish_dir: ./dist
+git add .github/workflows/cd.yml
