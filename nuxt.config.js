@@ -14,7 +14,10 @@ export default {
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
-
+  target: 'static',
+  router: {
+    base: '46-Lottery'
+  },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 

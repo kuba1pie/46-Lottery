@@ -1,5 +1,5 @@
 <template>
-  <div class="column container">
+  <section class="columns is-half is-desktop is-vcentered">
     <b-field v-if="status === 'start'">
       <b-input v-model="ean"></b-input>
       <b-button @click="addCode()">Add code</b-button>
@@ -12,7 +12,7 @@
       <div v-if="eanStatus === 'used'">EAN already used</div>
     </div>
     <div v-if="status === 'invalid'">Invalid EAN</div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -94,11 +94,9 @@ export default {
 };
 </script>
 <style lang="css">
-nav span a,
-input {
-  padding: 2em;
-}
-.sc {
-  padding: 2em auto;
+.field{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 </style>

@@ -1,14 +1,12 @@
 <template>
-  <nav class="has-shadow navbar mx-auto flex justify-between">
-    <span v-if="$store.state.user" class="container">
-      <p>User: {{ $store.state.user.email }}</p>
-      <nuxt-link to="/admin">Admin</nuxt-link
-      ><b-button @click="signOut">Sign Out</b-button></span
-    >
-    <span v-else class="container">
-      <nuxt-link to="/login">Log in</nuxt-link>
-      <nuxt-link to="/register">Register</nuxt-link></span
-    >
+  <nav v-if="$store.state.user" class="navbar-meni">
+    <p>User: {{ $store.state.user.email }}</p>
+    <nuxt-link to="/admin">Admin Panel</nuxt-link>
+    <b-button @click="signOut">Sign Out</b-button>
+  </nav>
+  <nav v-else class="navbar-menu">
+    <nuxt-link to="/login" class="navbar-item">Log in</nuxt-link>
+    <nuxt-link to="/register" class="navbar-item">Register</nuxt-link>
   </nav>
 </template>
 
@@ -30,3 +28,21 @@ export default {
   },
 };
 </script>
+<style>
+html body nav {
+  margin: 0 auto;
+  display: flex;
+  padding: 1em 0;
+  flex-flow: row no-wrap;
+  justify-content: center;
+  align-content: center;
+}
+nav > p,
+a,
+button {
+  padding: 1em;
+}
+nav > button {
+  margin: 0.5em;
+}
+</style>

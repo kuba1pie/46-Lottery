@@ -1,11 +1,11 @@
 <template>
-  <section v-if="$store.state.user" class="section">
+  <div v-if="$store.state.user">
     <b-tabs position="is-centered" class="block">
       <b-tab-item label="Prizes"><Prizes /></b-tab-item>
       <b-tab-item label="Valid EANs"><Eans /></b-tab-item>
       <b-tab-item label="Scaned Codes"><Codes /></b-tab-item>
     </b-tabs>
-  </section>
+  </div>
   <section v-else class="section">
     <p>Please Login to your accont</p>
     <Login />

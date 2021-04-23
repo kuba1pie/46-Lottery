@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 <template>
-  <div id="auth">
+  <div id="auth container">
     <Header />
-    <main class="main-content columns container">
+    <main class="container">
       <nuxt />
     </main>
   </div>

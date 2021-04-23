@@ -1,8 +1,7 @@
-/* eslint-disable prettier/prettier */
 <template>
-  <div id="default">
+  <div id="default container">
     <Header />
-    <main class="main-content columns container">
+    <main>
         <nuxt />
     </main>
   </div>
