@@ -16,7 +16,7 @@ export default {
   },
   target: 'static',
   router: {
-    base: '46-Lottery'
+    base: '/46-Lottery/'
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
