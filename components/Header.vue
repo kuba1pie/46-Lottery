@@ -7,7 +7,8 @@
   <nav v-else class="navbar-menu">
     <nuxt-link to="/login" class="navbar-item">Log in</nuxt-link>
     <nuxt-link to="/register" class="navbar-item">Register</nuxt-link>
-  </nav>
+    <nuxt-link to="/preview" class="navbar-item">Preview</nuxt-link>
+  </nav> 
 </template>
 
 <script>

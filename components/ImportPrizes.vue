@@ -18,11 +18,14 @@
                 <b-icon icon="upload" size="is-large"></b-icon>
               </p>
               <p>Drop your Prize file or click to upload</p>
+              <p>Upload Button disabled in preview</p>
             </div>
           </section>
         </b-upload>
       </b-field>
-      <b-button @click="upload">Upload</b-button>
+      <b-button v-if="$store.state.user !== null" @click="upload">Upload</b-button>
+      <b-button v-if="$store.state.user === null">Upload</b-button
+      >
     </div>
   </div>
 </template>

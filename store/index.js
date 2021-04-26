@@ -11,6 +11,7 @@ const createStore = () => {
       codesRes: [],
       last: "loose",
       validEans: [],
+      prevWin: "",
     },
     getters: {
       user(state) {
@@ -43,6 +44,9 @@ const createStore = () => {
       },
       setCodes(state, payload) {
         state.codesRes = payload;
+      },
+      setPrevWin(state, payload) {
+        state.prevWin = payload;
       },
       setWin(state, payload) {
         const cityRef = db.collection("results").doc(payload.id);
@@ -82,7 +86,7 @@ const createStore = () => {
                 const item = {
                   id: doc.id,
                   desc: info.desc,
-                  win: info.win,
+                  // win: info.win,
                   winnerCode: info.winnerCode,
                   time: null,
                 };
@@ -90,16 +94,11 @@ const createStore = () => {
                   const date = info.time;
                   item.time = moment.unix(date).format("MM/DD/YYYY HH:mm:ss");
                   if (info.time * 1000 < Date.now()) {
-                    context.commit("setLast", item);
-                    this.last = item;
-                  }
-                  if (info.win === true) {
-                    context.commit("setLast", "loose");
-                    this.last = "loose";
-
+                    if (info.win == null) {
+                      context.commit("setLast", item);
+                    }
                   }
                 }
-
                 lotteryResults.push(item);
               });
               context.commit("setResults", lotteryResults);
@@ -117,14 +116,16 @@ const createStore = () => {
             const codesResults = [];
             querySnapshot.docs.forEach((doc) => {
               const info = doc.data();
-              codesResults.push({
+
+              const dat = {
                 id: doc.id,
                 ean: info.ean,
-                award: info.award.desc,
+                award: info.award,
                 time: moment
                   .unix(info.created / 1000)
                   .format("MM/DD/YYYY HH:mm:ss"),
-              });
+              };
+              codesResults.push(dat);
             });
             context.commit("setCodes", codesResults);
           });

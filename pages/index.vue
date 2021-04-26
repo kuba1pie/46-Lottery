@@ -3,10 +3,11 @@
     <b-field v-if="status === 'start'">
       <b-input v-model="ean"></b-input>
       <b-button @click="addCode()">Add code</b-button>
+      {{ last }}
     </b-field>
     <div v-if="status === 'valid'">
       <div v-if="eanStatus === 'first'">
-        <div v-if="wonStatus === 'won'">You won {{ last.desc }}</div>
+        <div v-if="wonStatus === 'won'">You won {{ prevWin }}</div>
         <div v-if="wonStatus === 'loose'">You loose</div>
       </div>
       <div v-if="eanStatus === 'used'">EAN already used</div>
@@ -30,7 +31,7 @@ export default {
           db.collection("codes").add({
             ean: this.ean,
             created: this.created,
-            award: this.award,
+            award: this.last,
           });
         };
       }
@@ -44,7 +45,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["lotteryRes", "last", "validEans"]),
+    ...mapState(["lotteryRes", "last", "prevWin", "validEans"]),
   },
   mounted() {
     this.getResults();
@@ -52,41 +53,56 @@ export default {
   },
   methods: {
     ...mapActions(["addCode", "getResults", "getValidEans"]),
-    ...mapMutations(["setWin", "markEan"]),
+    ...mapMutations(["setWin", "setPrevWin", "markEan"]),
 
     addCode() {
       console.log("add");
       this.checkEan();
+      // eslint-disable-next-line no-unused-vars
       const code = new this.Item(this.ean, this.last);
       code.send();
     },
     checkEan() {
+      console.log("check");
+
       const val = this.validEans.filter((e) => e.ean === parseInt(this.ean));
       if (val.length > 0) {
         this.status = "valid";
+        console.log("valid");
+
         this.checkIfUsed(val[0]);
       } else {
         this.status = "invalid";
+        console.log("invalid");
       }
     },
     checkIfUsed(ean) {
-      console.log(ean)
-      console.log(ean.win)
-      const item = ean.win;
+      console.log(ean);
+      console.log("checkIfUsed");
+      const item = ean.checked;
       if (item !== true) {
         this.eanStatus = "first";
+        console.log("first");
         console.log("mark ean as checked " + this.ean);
         this.markEan(ean.id);
         this.checkAward(ean);
       } else {
+        console.log("used");
         this.eanStatus = "used";
       }
     },
     checkAward(ean) {
+      console.log("checkAward");
+      console.log("this.last: " + this.last);
       if (this.last !== "loose") {
+        console.log("win");
+
         this.wonStatus = "won";
         this.setWin({ id: this.last.id, ean: this.ean });
+        this.setPrevWin(this.last.desc);
       } else {
+        console.log("loose");
+
         this.wonStatus = "loose";
       }
     },
@@ -94,7 +110,7 @@ export default {
 };
 </script>
 <style lang="css">
-.field{
+.field {
   display: flex;
   flex-direction: row;
   justify-content: center;

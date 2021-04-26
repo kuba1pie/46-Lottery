@@ -22,7 +22,7 @@
           </section>
         </b-upload>
       </b-field>
-      <b-button @click="upload">Upload</b-button>
+      <b-button v-if="$store.state.user" @click="upload">Upload</b-button>
     </div>
   </div>
 </template>
