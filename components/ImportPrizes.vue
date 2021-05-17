@@ -23,8 +23,14 @@
           </section>
         </b-upload>
       </b-field>
-      <b-button v-if="$store.state.user !== null" @click="upload">Upload</b-button>
-      <b-button v-if="$store.state.user === null">Upload</b-button
+      <b-button
+        v-if="$store.state.user !== null"
+        class="button is-primary"
+        @click="upload"
+        >Upload</b-button
+      >
+      <b-button v-if="$store.state.user === null" class="button is-primary"
+        >Upload</b-button
       >
     </div>
   </div>

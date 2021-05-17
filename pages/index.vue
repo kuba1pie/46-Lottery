@@ -1,18 +1,17 @@
 <template>
-  <section class="columns is-half is-desktop is-vcentered">
-    <b-field v-if="status === 'start'">
+  <section class="columns is-mobile is-centered">
+    <b-field v-if="status === 'start'" id="form">
       <b-input v-model="ean"></b-input>
       <b-button @click="addCode()">Add code</b-button>
-      {{ last }}
     </b-field>
-    <div v-if="status === 'valid'">
-      <div v-if="eanStatus === 'first'">
-        <div v-if="wonStatus === 'won'">You won {{ prevWin }}</div>
-        <div v-if="wonStatus === 'loose'">You loose</div>
+    <div v-if="status === 'valid'" id="valid">
+      <div v-if="eanStatus === 'first'" id="first">
+        <div v-if="wonStatus === 'won'" id="won">You won {{ prevWin }}</div>
+        <div v-if="wonStatus === 'loose'" id="loose">You loose</div>
       </div>
-      <div v-if="eanStatus === 'used'">EAN already used</div>
+      <div v-if="eanStatus === 'used'" id="used">EAN already used</div>
     </div>
-    <div v-if="status === 'invalid'">Invalid EAN</div>
+    <div v-if="status === 'invalid'" id="invalid">Invalid EAN</div>
   </section>
 </template>
 
@@ -99,7 +98,7 @@ export default {
 
         this.wonStatus = "won";
         this.setWin({ id: this.last.id, ean: this.ean });
-        this.setPrevWin(this.last.desc);
+        this.setPrevWin(this.last);
       } else {
         console.log("loose");
 

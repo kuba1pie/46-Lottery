@@ -1,5 +1,5 @@
 <template>
-  <section class="p-6 w-1/5 container mx-auto shadow-md">
+  <div>
     <b-field
       label="Email"
       type="is-danger"
@@ -24,9 +24,10 @@
       tag="input"
       native-type="submit"
       value="Login"
+      class="button inline-block"
       @click="userLogIn"
     />
-  </section>
+  </div>
 </template>
 
 <script>

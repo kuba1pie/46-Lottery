@@ -95,7 +95,7 @@ const createStore = () => {
                   item.time = moment.unix(date).format("MM/DD/YYYY HH:mm:ss");
                   if (info.time * 1000 < Date.now()) {
                     if (info.win == null) {
-                      context.commit("setLast", item);
+                      context.commit("setLast", item.desc);
                     }
                   }
                 }

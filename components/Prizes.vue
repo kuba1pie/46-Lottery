@@ -1,14 +1,14 @@
 <template>
   <div id="Prizes" class="Results Prizes">
-    <div class="count">
+    <div  class="box">
       <h2>
         Winner codes:
         {{ lotteryRes.filter((code) => code.win !== undefined).length }}
       </h2>
       <h2>Checked codes: {{ lotteryRes.length }}</h2>
     </div>
-    <ImportPrizes />
-    <b-table :data="lotteryRes" :columns="columns"></b-table>
+    <ImportPrizes  class="box"/>
+    <b-table :data="lotteryRes" :columns="columns"  class="box"></b-table>
   </div>
 </template>
 

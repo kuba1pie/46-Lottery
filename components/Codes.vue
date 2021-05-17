@@ -1,10 +1,10 @@
 <template>
   <section>
-    <div class="count">
+    <div class="box">
       <h2>Winner codes: {{ winCodes }}</h2>
       <h2>Checked codes: {{ codesRes.length }}</h2>
     </div>
-    <b-table :data="codesRes" :columns="columns"></b-table>
+    <b-table :data="codesRes" :columns="columns" class="box"></b-table>
   </section>
 </template>
 

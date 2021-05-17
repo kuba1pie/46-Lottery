@@ -1,7 +1,7 @@
 <template>
-  <div id="default container">
+  <div id="default">
     <Header />
-    <main>
+    <main class="is-flex-direction-column is-justify-content-center">
         <nuxt />
     </main>
   </div>

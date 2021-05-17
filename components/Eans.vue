@@ -1,15 +1,15 @@
 <template>
   <div class="column">
-    <div class="count">
+    <div  class="box">
       <h2>
         Checked Eans count:
         {{ validEans.filter((code) => code.checked == true).length }}
       </h2>
       <h2>Valid Eans count: {{ validEans.length }}</h2>
     </div>
-    <ImportEans />
+    <ImportEans  class="box"/>
 
-    <b-table :data="validEans" :columns="columns"></b-table>
+    <b-table :data="validEans" :columns="columns"  class="box"></b-table>
   </div>
 </template>
 

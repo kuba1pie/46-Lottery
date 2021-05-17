@@ -1,6 +1,5 @@
 <template>
-  <section class="section">
-    <p>Please Login to your accont</p>
+  <section class="p-6 w-1/5 container mx-auto shadow-md">
     <Login />
   </section>
 </template>
