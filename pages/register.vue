@@ -28,6 +28,7 @@
       </b-field>
       <b-button
         tag="input"
+        class= "button is-info is-large"
         native-type="submit"
         value="Register and login"
         @click="userSignUp"

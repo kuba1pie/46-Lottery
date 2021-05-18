@@ -29,7 +29,7 @@
         @click="upload"
         >Upload</b-button
       >
-      <b-button v-if="$store.state.user === null" class="button is-primary"
+      <b-button v-if="$store.state.user === null" class="button is-info is-large"
         >Upload</b-button
       >
     </div>
