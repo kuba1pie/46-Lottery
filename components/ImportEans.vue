@@ -6,7 +6,7 @@
         <b-upload v-model="file" expanded>
           <a class="button is-primary is-fullwidth">
             <b-icon icon="upload"></b-icon>
-            <span>{{ file.name || "Click to upload" }}</span>
+            <span >{{ file.name || "Click to upload" }}</span>
           </a>
         </b-upload>
       </b-field>
@@ -22,7 +22,12 @@
           </section>
         </b-upload>
       </b-field>
-      <b-button v-if="$store.state.user" class="button is-info is-large" @click="upload">Upload</b-button>
+      <b-button
+        v-if="$store.state.user"
+        class="button is-large"
+        @click="upload"
+        >Upload</b-button
+      >
     </div>
   </div>
 </template>
@@ -69,3 +74,8 @@ export default {
   },
 };
 </script>
+<style>
+.button {
+  background-color: #ba1414;
+}
+</style>

@@ -3,8 +3,10 @@
     <div class="field has-addons">
       <div class="control">
         <input
+          id="inputEan"
           v-model="ean"
           class="input is-large"
+          :class="eanLength == 13 ? 'is-success' : 'is-danger'"
           type="text"
           placeholder="Type your ean"
         />
@@ -56,6 +58,7 @@ export default {
   },
   computed: {
     ...mapState(["lotteryRes", "last", "prevWin", "validEans"]),
+    a => (a < 10) ? 'valid' : 'invalid'
   },
   mounted() {
     this.getResults();

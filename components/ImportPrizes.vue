@@ -25,11 +25,13 @@
       </b-field>
       <b-button
         v-if="$store.state.user !== null"
-        class="button is-primary"
+        class="button"
         @click="upload"
         >Upload</b-button
       >
-      <b-button v-if="$store.state.user === null" class="button is-info is-large"
+      <b-button
+        v-if="$store.state.user === null"
+        class="button is-info is-large"
         >Upload</b-button
       >
     </div>
@@ -81,3 +83,8 @@ export default {
   },
 };
 </script>
+<style>
+.button {
+  background-color: #ba1414;
+}
+</style>
