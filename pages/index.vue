@@ -1,110 +1,48 @@
 <template>
-  <section class="columns is-mobile is-centered">
-    <b-field v-if="status === 'start'" id="form">
-      <b-input v-model="ean"></b-input>
-      <b-button @click="addCode()">Add code</b-button>
-    </b-field>
-    <div v-if="status === 'valid'" id="valid">
-      <div v-if="eanStatus === 'first'" id="first">
-        <div v-if="wonStatus === 'won'" id="won">You won {{ prevWin }}</div>
-        <div v-if="wonStatus === 'loose'" id="loose">You loose</div>
-      </div>
-      <div v-if="eanStatus === 'used'" id="used">EAN already used</div>
+  <section class="section is-centered is-mobile m-6 p-6">
+    <div class="block">
+      <h1 class="title">Lottery 2021</h1>
+      <p class="subtitle">
+        Use this form to check if your <strong>EAN13</strong> code!
+      </p>
+      <CheckEan />
     </div>
-    <div v-if="status === 'invalid'" id="invalid">Invalid EAN</div>
+    <div class="block">
+          <h2>This page is developed as training task.</h2>
+          <h3>Requirements:</h3>
+          <ul>
+            <li>Authentication by Google Firebase</li>
+            <li>You can create your own profile!</li>
+            <li>If already logged in you can see the entire Admin Dashboard</li>
+            <li>If won't you can onlypreview it in the Preview Page also</li>
+            <li>On the admin panel you can:
+              <ol>Import valid EANS as .csv file</ol>
+              <ol>Import prizes with win time as .csv file</ol>
+              <ol>Check already scanned codes and results</ol>
+            </li>
+          </ul>
+      <article class="message is-warning m-6">
+        <div class="message-body">
+          <p>Check the source code on the repository.</p>
+          <a href="https://github.com/kuba1pie/46-Lottery"
+            >/kuba1pie/46-Lottery</a
+          >
+        </div>
+      </article>
+    </div>
   </section>
 </template>
 
 <script>
-import { mapActions, mapState, mapMutations } from "vuex";
-import { db } from "~/plugins/firebase.js";
+import CheckEan from "@/components/CheckEan.vue";
+
 export default {
   name: "HomePage",
+  components: {
+    CheckEan,
+  },
   data() {
-    class Item {
-      constructor(ean, award) {
-        this.ean = parseInt(ean);
-        this.created = Date.now();
-        this.award = award;
-        this.send = function () {
-          db.collection("codes").add({
-            ean: this.ean,
-            created: this.created,
-            award: this.last,
-          });
-        };
-      }
-    }
-    return {
-      ean: null,
-      Item,
-      status: "start",
-      wonStatus: "",
-      eanStatus: "",
-    };
-  },
-  computed: {
-    ...mapState(["lotteryRes", "last", "prevWin", "validEans"]),
-  },
-  mounted() {
-    this.getResults();
-    this.getValidEans();
-  },
-  methods: {
-    ...mapActions(["addCode", "getResults", "getValidEans"]),
-    ...mapMutations(["setWin", "setPrevWin", "markEan"]),
-
-    addCode() {
-      console.log("add");
-      this.checkEan();
-      // eslint-disable-next-line no-unused-vars
-      const code = new this.Item(this.ean, this.last);
-      code.send();
-    },
-    checkEan() {
-      console.log("check");
-
-      const val = this.validEans.filter((e) => e.ean === parseInt(this.ean));
-      if (val.length > 0) {
-        this.status = "valid";
-        console.log("valid");
-
-        this.checkIfUsed(val[0]);
-      } else {
-        this.status = "invalid";
-        console.log("invalid");
-      }
-    },
-    checkIfUsed(ean) {
-      console.log(ean);
-      console.log("checkIfUsed");
-      const item = ean.checked;
-      if (item !== true) {
-        this.eanStatus = "first";
-        console.log("first");
-        console.log("mark ean as checked " + this.ean);
-        this.markEan(ean.id);
-        this.checkAward(ean);
-      } else {
-        console.log("used");
-        this.eanStatus = "used";
-      }
-    },
-    checkAward(ean) {
-      console.log("checkAward");
-      console.log("this.last: " + this.last);
-      if (this.last !== "loose") {
-        console.log("win");
-
-        this.wonStatus = "won";
-        this.setWin({ id: this.last.id, ean: this.ean });
-        this.setPrevWin(this.last);
-      } else {
-        console.log("loose");
-
-        this.wonStatus = "loose";
-      }
-    },
+    return {};
   },
 };
 </script>

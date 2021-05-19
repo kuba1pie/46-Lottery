@@ -14,18 +14,15 @@ export default {
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
-  target: 'static',
+  target: "static",
   router: {
-    base: '/46-Lottery/'
+    base: "/46-Lottery/",
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    "~/plugins/firebase.js",
-    "~/plugins/fireauth.js",
-  ],
+  plugins: ["~/plugins/firebase.js", "~/plugins/fireauth.js"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -35,11 +32,14 @@ export default {
     // https://go.nuxtjs.dev/eslint
     "@nuxtjs/eslint-module",
   ],
-
+  gtm: {
+    id: "GTM-K3HZL8R",
+  },
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/buefy
     "nuxt-buefy",
+    "@nuxtjs/gtm",
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
     [
