@@ -1,32 +1,29 @@
 <template>
   <div class="column">
-    <h1>Import</h1>
-    <div id="form">
-      <b-field class="file">
-        <b-upload v-model="file" expanded>
-          <a class="button is-primary is-fullwidth">
-            <b-icon icon="upload"></b-icon>
-            <span>{{ file.name || "Click to upload" }}</span>
-          </a>
-        </b-upload>
-      </b-field>
-      <b-field>
-        <b-upload v-model="dropFiles" multiple drag-drop expanded>
-          <section class="section">
-            <div class="content has-text-centered">
-              <p>
-                <b-icon icon="upload" size="is-large"></b-icon>
-              </p>
-              <p>Drop your Prize file or click to upload</p>
-              <p>Upload Button disabled in preview</p>
-            </div>
-          </section>
-        </b-upload>
-      </b-field>
-      <b-button
-        v-if="$store.state.user !== null"
-        class="button"
-        @click="upload"
+    <h1>Import Prizes from .csv file</h1>
+    <b-field class="file">
+      <b-upload v-model="file" expanded>
+        <a class="button is-primary is-fullwidth">
+          <b-icon icon="upload"></b-icon>
+          <span>{{ file.name || "Click to upload" }}</span>
+        </a>
+      </b-upload>
+    </b-field>
+    <b-field>
+      <b-upload v-model="dropFiles" multiple drag-drop expanded>
+        <section class="section">
+          <div class="content has-text-centered">
+            <p>
+              <b-icon icon="upload" size="is-large"></b-icon>
+            </p>
+            <p>Drop your Prize file or click to upload</p>
+            <p>Upload Button disabled in preview</p>
+          </div>
+        </section>
+      </b-upload>
+    </b-field>
+    <b-field>
+      <b-button v-if="$store.state.user !== null" class="button" @click="upload"
         >Upload</b-button
       >
       <b-button
@@ -34,7 +31,7 @@
         class="button is-info is-large"
         >Upload</b-button
       >
-    </div>
+    </b-field>
   </div>
 </template>
 

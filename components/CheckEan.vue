@@ -1,23 +1,25 @@
 <template>
   <section class="columns is-mobile is-centered">
-    <div class="field has-addons">
+    <div class="field has-addons block">
       <div class="control">
         <input
           id="inputEan"
           v-model="ean"
           class="input is-large"
-          :class="eanLength == 13 ? 'is-success' : 'is-danger'"
+          :class="inputClass"
           type="text"
-          placeholder="Type your ean"
+          pattern="\d*"
+          maxlength="13"
+          placeholder="Type your EAN13"
         />
       </div>
       <div class="control">
-        <a class="button is-large is-info" @click="addCode()">
+        <a class="button is-large" :class="inputClass" @click="addCode()">
           Check your code!
         </a>
       </div>
     </div>
-    <div v-if="status === 'valid'" id="valid">
+    <div v-if="status === 'valid'" id="valid" class="block">
       <div v-if="eanStatus === 'first'" id="first">
         <div v-if="wonStatus === 'won'" id="won">You won {{ prevWin }}</div>
         <div v-if="wonStatus === 'loose'" id="loose">You loose</div>
@@ -49,7 +51,7 @@ export default {
       }
     }
     return {
-      ean: null,
+      ean: "",
       Item,
       status: "start",
       wonStatus: "",
@@ -58,7 +60,15 @@ export default {
   },
   computed: {
     ...mapState(["lotteryRes", "last", "prevWin", "validEans"]),
-    a => (a < 10) ? 'valid' : 'invalid'
+    inputClass() {
+      let className;
+      if (this.ean.length !== 13) {
+        className = "is-danger";
+      } else {
+        className = "is-success";
+      }
+      return className;
+    },
   },
   mounted() {
     this.getResults();

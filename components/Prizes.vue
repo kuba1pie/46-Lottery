@@ -3,7 +3,7 @@
     <div  class="box">
       <h2>
         Winner codes:
-        {{ lotteryRes.filter((code) => code.win !== undefined).length }}
+        {{ lotteryRes.filter((code) => code.winnerCode !== undefined).length }}
       </h2>
       <h2>Checked codes: {{ lotteryRes.length }}</h2>
     </div>
@@ -33,12 +33,8 @@ export default {
           label: "Time",
         },
         {
-          field: "win",
-          label: "Win",
-        },
-        {
           field: "winnerCode",
-          label: "winnerCode",
+          label: "Winner EAN",
         },
       ],
     };

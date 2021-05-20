@@ -1,7 +1,6 @@
 <template>
   <section class="section is-centered is-mobile m-6 p-6">
     <div class="block">
-      <h1 class="title">Lottery 2021</h1>
       <p class="subtitle">
         Use this form to check if your <strong>EAN13</strong> code!
       </p>
@@ -58,10 +57,21 @@ export default {
   },
 };
 </script>
-<style lang="css">
+<style>
 .field {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+}
+.navbar-item{
+  font-size: 32px
+}
+.subtitle{
+  text-align: center
+}
+.box, .form{
+  display: flex;
+  flex-flow: column;
   justify-content: center;
 }
 </style>

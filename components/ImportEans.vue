@@ -1,12 +1,12 @@
 <template>
   <div id="ImportEans" class="column ImportEans">
-    <h1>Import</h1>
+    <h1>Import EAN codes from .csv file</h1>
     <div id="form">
       <b-field class="file">
         <b-upload v-model="file" expanded>
           <a class="button is-primary is-fullwidth">
             <b-icon icon="upload"></b-icon>
-            <span >{{ file.name || "Click to upload" }}</span>
+            <span>{{ file.name || "Click to upload" }}</span>
           </a>
         </b-upload>
       </b-field>
@@ -22,12 +22,14 @@
           </section>
         </b-upload>
       </b-field>
-      <b-button
-        v-if="$store.state.user"
-        class="button is-large"
-        @click="upload"
-        >Upload</b-button
-      >
+      <b-field>
+        <b-button
+          v-if="$store.state.user"
+          class="button is-large"
+          @click="upload"
+          >Upload</b-button
+        >
+      </b-field>
     </div>
   </div>
 </template>
@@ -77,5 +79,9 @@ export default {
 <style>
 .button {
   background-color: #ba1414;
+}
+h1{
+  padding: 2em 0;
+  text-align: center
 }
 </style>

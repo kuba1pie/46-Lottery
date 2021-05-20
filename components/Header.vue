@@ -10,9 +10,9 @@
     <nuxt-link to="/"
       ><img class="logo" src="../assets/logo.png" alt="My company name"
     /></nuxt-link>
-    <nuxt-link to="/login" class="navbar-item">Log in</nuxt-link>
-    <nuxt-link to="/register" class="navbar-item">Register</nuxt-link>
     <nuxt-link to="/preview" class="navbar-item">Preview</nuxt-link>
+    <nuxt-link to="/login" class="navbar-item">Login</nuxt-link>
+    <nuxt-link to="/register" class="navbar-item">Register</nuxt-link>
   </nav>
 </template>
 

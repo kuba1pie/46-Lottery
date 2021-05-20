@@ -1,16 +1,15 @@
 <template>
-  <div>
+  <div class="block">
     <b-field
-      label="Email"
+      label="Email:"
       type="is-danger"
       message="This email is invalid"
       @submit.prevent="userLogIn"
     >
-      <b-input id="email" v-model="email" type="email" value="" maxlength="30">
-      </b-input>
+      <b-input id="email" v-model="email" type="email" value=""> </b-input>
     </b-field>
 
-    <b-field label="Password">
+    <b-field label="Password:">
       <b-input
         id="password"
         v-model="password"
@@ -20,13 +19,15 @@
       >
       </b-input>
     </b-field>
-    <b-button
-      tag="input"
-      native-type="submit"
-      value="Login"
-      class="button inline-block is-info is-large"
-      @click="userLogIn"
-    />
+    <b-field>
+      <b-button
+        tag="input"
+        native-type="submit"
+        value="Login"
+        class="button inline-block is-info is-large"
+        @click="userLogIn"
+      />
+    </b-field>
   </div>
 </template>
 
@@ -61,3 +62,17 @@ export default {
   },
 };
 </script>
+<style>
+.field {
+  justify-content: center;
+  padding: 1em;
+  display: flex;
+  flex-flow: column;
+}
+label{
+  width: 80px
+}
+.help{
+  text-align: center;
+}
+</style>
