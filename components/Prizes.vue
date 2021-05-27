@@ -1,6 +1,6 @@
 <template>
   <div id="Prizes" class="Results Prizes">
-    <div  class="box">
+    <div  class="box box-styled">
       <h2>
         Winner codes:
         {{ lotteryRes.filter((code) => code.winnerCode !== undefined).length }}

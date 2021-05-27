@@ -1,11 +1,11 @@
 <template>
-  <section class="columns is-mobile is-centered">
+  <section class="columns is-mobile is-centered check">
     <div class="field has-addons block">
       <div class="control">
         <input
           id="inputEan"
           v-model="ean"
-          class="input is-large"
+          class="input is-large is-primary"
           :class="inputClass"
           type="text"
           pattern="\d*"
@@ -13,20 +13,47 @@
           placeholder="Type your EAN13"
         />
       </div>
-      <div class="control">
+      <div class="control is-primary">
         <a class="button is-large" :class="inputClass" @click="addCode()">
           Check your code!
         </a>
       </div>
     </div>
-    <div v-if="status === 'valid'" id="valid" class="block">
-      <div v-if="eanStatus === 'first'" id="first">
-        <div v-if="wonStatus === 'won'" id="won">You won {{ prevWin }}</div>
-        <div v-if="wonStatus === 'loose'" id="loose">You loose</div>
+    <div class="status">
+      <div v-if="status === 'valid'" id="valid" class="block">
+        <article v-if="eanStatus === 'first'" id="first">
+          <div v-if="wonStatus === 'won'" id="won" class="message is-primary">
+            You won {{ prevWin }}
+            <div class="message-body">You won {{ prevWin }}</div>
+          </div>
+          <div
+            v-if="wonStatus === 'loose'"
+            id="loose"
+            class="message is-danger"
+          >
+            <div class="message-body">You loose</div>
+
+            You loose
+          </div>
+        </article>
+        <article
+          v-if="eanStatus === 'used'"
+          id="used"
+          class="message is-warning"
+        >
+          <div class="message-body">EAN already used</div>
+
+          EAN already used
+        </article>
       </div>
-      <div v-if="eanStatus === 'used'" id="used">EAN already used</div>
+      <article
+        v-if="status === 'invalid'"
+        id="invalid"
+        class="message is-danger m-6"
+      >
+        <div class="message-body">Invalid EAN</div>
+      </article>
     </div>
-    <div v-if="status === 'invalid'" id="invalid">Invalid EAN</div>
   </section>
 </template>
 

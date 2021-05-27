@@ -1,10 +1,8 @@
 <template>
   <nav v-if="$store.state.user" class="navbar-meni">
     <img class="logo" src="../assets/logo.png" alt="My company name" />
-
-    <p>User: {{ $store.state.user.email }}</p>
-    <nuxt-link to="/admin">Admin Panel</nuxt-link>
-    <b-button @click="signOut">Sign Out</b-button>
+    <nuxt-link to="/admin" class="navbar-item">Admin Panel</nuxt-link>
+    <a class="navbar-item" @click="signOut">Sign Out</a>
   </nav>
   <nav v-else class="navbar-menu">
     <nuxt-link to="/"
@@ -27,9 +25,12 @@ export default {
   methods: {
     // eslint-disable-next-line node/handle-callback-err
     signOut(err) {
-      this.$store.dispatch("signOut").catch((err) => {
-        alert(err.message);
-      });
+      this.$store
+        .dispatch("signOut")
+        .then(() => this.$router.push({ path: '/' }))
+        .catch((err) => {
+          alert(err.message);
+        });
     },
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <section class="section is-centered is-mobile m-6 p-6">
     <div class="block">
-      <p class="subtitle">
+      <p class="subtitle is-primary">
         Use this form to check if your <strong>EAN13</strong> code!
       </p>
       <CheckEan />
@@ -63,13 +63,14 @@ export default {
   flex-direction: row;
   justify-content: center;
 }
-.navbar-item{
-  font-size: 32px
+.navbar-item {
+  font-size: 32px;
 }
-.subtitle{
-  text-align: center
+.subtitle {
+  text-align: center;
 }
-.box, .form{
+.box,
+.form {
   display: flex;
   flex-flow: column;
   justify-content: center;

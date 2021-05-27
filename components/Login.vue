@@ -24,7 +24,7 @@
         tag="input"
         native-type="submit"
         value="Login"
-        class="button inline-block is-info is-large"
+        class="button inline-block is-primary is-large"
         @click="userLogIn"
       />
     </b-field>

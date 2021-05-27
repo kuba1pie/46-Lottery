@@ -1,14 +1,42 @@
-// Import Bulma's core
-@import "~bulma/sass/utilities/_all"
+@charset "utf-8"
+@import "../node_modules/bulma/sass/utilities/initial-variables"
+@import "../node_modules/bulma/sass/utilities/functions"
 
-// Set your colors
-$primary: #8c67ef
-$primary-light: findLightColor($primary)
-$primary-dark: findDarkColor($primary)
-$primary-invert: findColorInvert($primary)
+// Your custom variables
+$primary: #ba1414
 
-// There are more other styles and variables here.
+@import "../node_modules/bulma/bulma.sass"
 
-// Import Bulma and Buefy styles
-@import "~bulma"
-@import "~buefy/src/scss/buefy"
+// Your styles
+html
+  min-height: 100vh
+  body
+    background-color: #eee
+    min-height: 100vh
+    nav
+      a.navbar-item
+        height: 2em
+        &:hover
+          color: #000
+          background-color: #aaa
+    .navbar-menu
+      align-items: center
+    .tabs
+      font-size: 1.3em
+    .field.has-addons
+      display: flex
+      justify-content: flex-start
+      flex-flow: row
+    .box-styled
+      h2
+        text-align: center
+        font-size: 1.6em
+    .username
+      display: absolute
+    .check
+      display: flex
+      flex-flow: column
+      align-items: center
+      .status
+        font-size: 2em
+

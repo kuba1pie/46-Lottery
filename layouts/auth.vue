@@ -1,6 +1,9 @@
 /* eslint-disable prettier/prettier */
 <template>
   <div id="auth container">
+    <div v-if="$store.state.user" class="username">
+      {{ $store.state.user.email }}
+    </div>
     <Header />
     <main class="container">
       <nuxt />
@@ -10,6 +13,7 @@
 
 <script>
 import Header from "~/components/Header.vue";
+
 export default {
   components: {
     Header,

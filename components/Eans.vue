@@ -1,6 +1,6 @@
 <template>
   <div class="column">
-    <div  class="box">
+    <div  class="box box-styled">
       <h2>
         Checked Eans count:
         {{ validEans.filter((code) => code.checked == true).length }}

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-tabs position="is-centered" class="block">
+    <b-tabs position="is-centered is-primary" class="block">
       <b-tab-item label="Prizes"><Prizes /></b-tab-item>
       <b-tab-item label="Valid EANs"><Eans /></b-tab-item>
       <b-tab-item label="Scaned Codes"><Codes /></b-tab-item>

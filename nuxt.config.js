@@ -19,7 +19,7 @@ export default {
     base: "/46-Lottery/",
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ["@assets/style.sass"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ["~/plugins/firebase.js", "~/plugins/fireauth.js"],

@@ -13,7 +13,7 @@
       <b-field>
         <b-upload v-model="dropFiles" multiple drag-drop expanded>
           <section class="section">
-            <div class="content has-text-centered">
+            <div class="content has-text-centered is-primary">
               <p>
                 <b-icon icon="upload" size="is-large"></b-icon>
               </p>

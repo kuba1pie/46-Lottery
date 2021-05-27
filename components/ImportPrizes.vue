@@ -28,7 +28,7 @@
       >
       <b-button
         v-if="$store.state.user === null"
-        class="button is-info is-large"
+        class="button is-primary is-large"
         >Upload</b-button
       >
     </b-field>

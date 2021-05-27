@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="box">
+    <div class="box box-styled">
       <h2>Winner codes: {{ winCodes }}</h2>
       <h2>Checked codes: {{ codesRes.length }}</h2>
     </div>
