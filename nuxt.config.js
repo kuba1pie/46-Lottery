@@ -45,17 +45,7 @@ export default {
     [
       "@nuxtjs/firebase",
       {
-        config: {
-          apiKey: "AIzaSyCuuUZ3sQT7Zur6Y65jdH2LRjh3aKnkLHk",
-          authDomain: "mallpromo-361f1.firebaseapp.com",
-          databaseURL:
-            "https://mallpromo-361f1-default-rtdb.europe-west1.firebasedatabase.app",
-          projectId: "mallpromo-361f1",
-          storageBucket: "mallpromo-361f1.appspot.com",
-          messagingSenderId: "972443781449",
-          appId: "1:972443781449:web:e43754560dce71abea7298",
-          measurementId: "G-H9L9MXPLXE",
-        },
+        config: process.env.GOOGLE_FIREBASE,
         services: {
           auth: true, // Just as example. Can be any other service.
           /*           auth: {
